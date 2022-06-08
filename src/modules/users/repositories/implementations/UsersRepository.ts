@@ -36,7 +36,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   findById(id: string): User | undefined {
-    // Complete aqui
+    const user = this.users.find((user) => user.id === id);
+    return user;
   }
 
   findByEmail(email: string): User | undefined {
@@ -45,11 +46,20 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    // Complete aqui
+    const userIndex = this.users.findIndex(
+      (user) => user.id === receivedUser.id
+    );
+
+    this.users[userIndex] = {
+      ...this.users[userIndex],
+      admin: true,
+      updated_at: new Date(),
+    };
+    return this.users[userIndex];
   }
 
   list(): User[] {
-    // Complete aqui
+    return this.users;
   }
 }
 
